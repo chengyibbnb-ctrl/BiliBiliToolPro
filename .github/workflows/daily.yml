@@ -30,3 +30,8 @@ jobs:
           RAY_BILIBILITOOLPRO__0: ${{ secrets.RAY_BILIBILITOOLPRO__0 }}
           # 👇 新增这一行，把你的 Cookie 密钥注入到环境变量
           RAY_BILIBILICOOKIES__0: ${{ secrets.RAY_BILIBILICOOKIES__0 }}
+
+      - name: Send notification to ServerChan
+        run: |
+          curl -s "https://sc.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send?text=签到完成&desp=你的B站签到任务已经完成！"
+        if: success()  # 只有任务成功时才会发送通知
