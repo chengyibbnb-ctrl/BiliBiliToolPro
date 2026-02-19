@@ -1,0 +1,31 @@
+name: Daily Bilibili Job
+
+on:
+  workflow_dispatch:  # 允许手动触发
+  schedule:
+    - cron: '0 0-4 * * *'  # 每天 UTC 0:00 - 4:00（对应北京时间 8:00 - 12:00）的整点触发
+
+jobs:
+  run-bilibili-task:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run Bilibili Tool
+        run: dotnet run --configuration Release --no-build --project ./src/Ray.BiliBiliTool.Console
+        env:
+          RAY_BILIBILITOOLPRO__0: ${{ secrets.RAY_BILIBILITOOLPRO__0 }}
+
