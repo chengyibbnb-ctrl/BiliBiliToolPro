@@ -3,7 +3,7 @@ name: Daily Bilibili Job
 on:
   workflow_dispatch: # 允许手动触发
   schedule:
-    - cron: '0 0 * * *' # 每天 UTC 0:00 - 4:00 (对应北京时间 8:00 - 12:00) 的整点触发
+    - cron: '0 1 * * *' # 每天 UTC 1:00 = 北京时间 9:00 只跑一次
 
 jobs:
   run-bilibili-task:
@@ -28,10 +28,9 @@ jobs:
         run: dotnet run --configuration Release --no-build --project ./src/Ray.BiliBiliTool.Console
         env:
           RAY_BILIBILITOOLPRO__0: ${{ secrets.RAY_BILIBILITOOLPRO__0 }}
-          # 👇 新增这一行，把你的 Cookie 密钥注入到环境变量
           RAY_BILIBILICOOKIES__0: ${{ secrets.RAY_BILIBILICOOKIES__0 }}
 
       - name: Send notification to ServerChan
         run: |
           curl -s "https://sc.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send?text=签到完成&desp=你的B站签到任务已经完成！"
-        if: success()  # 只有任务成功时才会发送通知
+        if: success()
