@@ -37,3 +37,4 @@ jobs:
           curl -s "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send" \
           -d "title=签到完成" \
           -d "desp=你的B站签到任务已经完成！"
+          # re-enable schedule
