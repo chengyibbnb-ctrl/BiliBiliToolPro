@@ -1,4 +1,4 @@
-name: Daily Bilibili Job
+name: Daily Bilibili Jobv2
 
 on:
   workflow_dispatch:
