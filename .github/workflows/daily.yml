@@ -3,7 +3,7 @@ name: Daily Bilibili Jobv2
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * *'  # 对应北京时间每天上午8:00执行
 
 jobs:
   run-bilibili-task:
