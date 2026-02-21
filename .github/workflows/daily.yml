@@ -3,8 +3,7 @@ name: Daily Bilibili Job
 on:
   workflow_dispatch: # 允许手动触发
   schedule:
-    - cron: '0 0 * * *' # 每天 UTC 1:00 = 北京时间 9:00 只跑一次
-
+  - cron: '*/5 * * * *'
 jobs:
   run-bilibili-task:
     runs-on: ubuntu-latest
