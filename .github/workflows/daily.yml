@@ -33,5 +33,10 @@ jobs:
 
       - name: Send notification to ServerChan
         run: |
-          curl -s "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send?title=签到完成&desp=你的B站签到任务已经完成！"
+          curl -s "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send?title=签到完成&desp=你的B站签到任务已经完成"
         if: success()
+
+      - name: Send failure notification to ServerChan
+        if: failure()
+        run: |
+          curl -s "https://sctapi.ftqq.com/${{ secrets.SERVERCHAN_KEY }}.send?title=签到失败&desp=B站签到任务执行失败，可能是Cookie已过期，请重新扫码登录更新Cookie"
